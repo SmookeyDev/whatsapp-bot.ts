@@ -1,0 +1,22 @@
+{
+  "name": "whatsapp-bot.ts",
+  "version": "1.0.0",
+  "author": "Ícaro Sant'Ana <smookeydev@gmail.com>",
+  "main": "src/app.ts",
+  "license": "MIT",
+  "dependencies": {
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.19.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "@types/qrcode-terminal": "^0.12.0",
+    "nodemon": "^2.0.20",
+    "typescript": "^4.9.3"
+  },
+  "scripts": {
+    "start": "tsc && node dist/app.js",
+    "dev": "yarn run nodemon --exec ts-node src/app.ts",
+    "build": "tsc"
+  }
+}
