@@ -19,6 +19,7 @@
   "scripts": {
     "start": "tsc && node dist/app.js",
     "dev": "yarn run nodemon --exec ts-node src/app.ts",
+    "dev-watermark": "yarn run nodemon --exec ts-node src/app.ts @watermark",
     "debug": "node --inspect -r ts-node/register src/app.ts",
     "build": "tsc"
   }
