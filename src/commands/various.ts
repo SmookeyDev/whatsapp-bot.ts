@@ -1,7 +1,6 @@
 import { MessageMedia } from "whatsapp-web.js";
 import client from "../helpers/client";
-import { addTextToImg } from "./addTextToImg";
-import { addWatermark } from "./addWatermark";
+import { addTextToImg } from "./editImg";
 
 const watermark = process.argv[2] ?? false;
 
@@ -21,7 +20,7 @@ client.on("message", async (msg) => {
       if (msg.body.trim() != "!sticker")
         mediaData = await addTextToImg(await media.data, text);
 
-      if (watermark) mediaData = await addWatermark(mediaData, watermark);
+      if (watermark) mediaData = await addTextToImg(mediaData, watermark, true);
 
       let mediaType = await media.mimetype;
 
