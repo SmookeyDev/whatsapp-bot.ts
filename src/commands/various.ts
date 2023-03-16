@@ -1,34 +1,26 @@
 import { MessageMedia } from "whatsapp-web.js";
 import client from "../helpers/client";
-import { addTextToImg } from "./editImg";
-
-const watermark = process.argv[2] ?? false;
+import { addTextToImage } from "../lib/editImage";
 
 client.on("message", async (msg) => {
   if (msg.body.startsWith("!sticker")) {
     let chat = await msg.getChat();
     let name = await msg.getContact();
 
-    console.log(
-      `[COMMAND] ${name.pushname} used !sticker command in ${chat.name}`
-    );
-    const text = msg.body.split("!sticker").slice(1).join(" ").trim();
+    console.log(`[COMMAND] ${name.pushname} used !sticker command in ${chat.name}`);
+    const text = msg.body.slice("!sticker".length).trim();
+
     try {
-      let media = await msg.downloadMedia();
-      let mediaData = await media.data;
-      // person has sent something along with sticker command
-      if (msg.body.trim() != "!sticker")
-        mediaData = await addTextToImg(await media.data, text);
-
-      if (watermark) mediaData = await addTextToImg(mediaData, watermark, true);
-
-      let mediaType = await media.mimetype;
-
-      let sticker = new MessageMedia(mediaType, mediaData, media.filename);
-      client.sendMessage(msg.from, sticker, { sendMediaAsSticker: true });
+      const media = await msg.downloadMedia();
+      const mediaData = media.data;
+      
+      const shouldAddText = text && text.length > 0 && msg.body.trim() !== "!sticker";
+      const mediaWithText = shouldAddText ? await addTextToImage(mediaData, text) : mediaData;
+    
+      const sticker = new MessageMedia(media.mimetype, mediaWithText, media.filename);
+      await client.sendMessage(msg.from, sticker, { sendMediaAsSticker: true });
     } catch (err) {
       msg.reply("Erro ao converter a mídia em sticker");
-
       console.log(`[ERROR] ${err}`);
     }
   }

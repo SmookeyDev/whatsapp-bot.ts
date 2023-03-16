@@ -19,7 +19,7 @@ const setup = async (img: string) => {
   };
 };
 
-export async function addTextToImg(
+export async function addTextToImage(
   img: string,
   text: string,
   isWatermark = false
