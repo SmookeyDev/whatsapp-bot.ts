@@ -5,6 +5,7 @@
   "main": "src/app.ts",
   "license": "MIT",
   "dependencies": {
+    "jimp": "^0.22.7",
     "qrcode-terminal": "^0.12.0",
     "whatsapp-web.js": "^1.19.5"
   },
@@ -12,11 +13,14 @@
     "@types/node": "^18.11.9",
     "@types/qrcode-terminal": "^0.12.0",
     "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.3"
   },
   "scripts": {
     "start": "tsc && node dist/app.js",
     "dev": "yarn run nodemon --exec ts-node src/app.ts",
+    "dev-watermark": "yarn run nodemon --exec ts-node src/app.ts @watermark",
+    "debug": "node --inspect -r ts-node/register src/app.ts",
     "build": "tsc"
   }
 }
