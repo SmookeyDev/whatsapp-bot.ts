@@ -19,7 +19,6 @@
 - [Comandos](#commands)
 - [Requisitos para rodar ambiente de desenvolvimento](#developmentrequirements)
 - [Instalação](#installation)
-- [Créditos](#credits)
 
 ## 🧐 Sobre <a name="about"></a>
 O whatsapp-bot.ts é um bot de whatsapp que tem como objetivo ser um bot de utilidades, com comandos que podem ser úteis para o usuário. O bot foi feito em TypeScript e utiliza a biblioteca [whatsapp-web.js](https://github.com/pedroslopez/whatsapp-web.js) para se comunicar com o whatsapp.
