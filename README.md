@@ -61,7 +61,3 @@ $ yarn
 ```terminal
 $ yarn dev
 ```
-
-## 🔰 Créditos <a name="credits"></a>
-
-* [Ícaro Sant'Ana](https://github.com/SmookeyDev)
