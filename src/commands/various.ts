@@ -9,9 +9,10 @@ client.on("message", async (msg) => {
 
     console.log(`[COMMAND] ${name.pushname} used !sticker command in ${chat.name}`);
     const text = msg.body.slice("!sticker".length).trim();
+    const quotedMessage = await msg.getQuotedMessage()
 
     try {
-      const media = await msg.downloadMedia();
+      const media = await (quotedMessage ?? msg).downloadMedia();
       const mediaData = media.data;
       
       const shouldAddText = text && text.length > 0 && msg.body.trim() !== "!sticker";
