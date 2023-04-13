@@ -12,7 +12,8 @@ client.on("message", async (msg) => {
     const quotedMessage = await msg.getQuotedMessage()
 
     try {
-      const media = await (quotedMessage ?? msg).downloadMedia();
+      const message = quotedMessage?.hasMedia ? quotedMessage : msg;
+      const media = await message.downloadMedia();
       const mediaData = media.data;
       
       const shouldAddText = text && text.length > 0 && msg.body.trim() !== "!sticker";
