@@ -1,6 +1,7 @@
 import { MessageMedia } from "whatsapp-web.js";
 import client from "../helpers/client";
 import { addTextToImage } from "../lib/editImage";
+import { findMessageWithMedia } from "../helpers/find-media-recursive";
 
 client.on("message", async (msg) => {
   if (msg.body.startsWith("!sticker")) {
@@ -9,10 +10,10 @@ client.on("message", async (msg) => {
 
     console.log(`[COMMAND] ${name.pushname} used !sticker command in ${chat.name}`);
     const text = msg.body.slice("!sticker".length).trim();
-    const quotedMessage = await msg.getQuotedMessage()
 
     try {
-      const message = quotedMessage?.hasMedia ? quotedMessage : msg;
+      const message = await findMessageWithMedia(msg);
+      if(!message) return msg.reply("Não foi possível encontrar uma mídia para converter em sticker");
       const media = await message.downloadMedia();
       const mediaData = media.data;
       
