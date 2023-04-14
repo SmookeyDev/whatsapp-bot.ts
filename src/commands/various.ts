@@ -13,13 +13,14 @@ client.on("message", async (msg) => {
 
     try {
       const message = await findMessageWithMedia(msg);
-      if(!message) return msg.reply("Não foi possível encontrar uma mídia para converter em sticker");
+      if (!message)
+        return msg.reply("Não foi possível encontrar uma mídia para converter em sticker");
       const media = await message.downloadMedia();
       const mediaData = media.data;
-      
+
       const shouldAddText = text && text.length > 0 && msg.body.trim() !== "!sticker";
       const mediaWithText = shouldAddText ? await addTextToImage(mediaData, text) : mediaData;
-    
+
       const sticker = new MessageMedia(media.mimetype, mediaWithText, media.filename);
       await client.sendMessage(msg.from, sticker, { sendMediaAsSticker: true });
     } catch (err) {

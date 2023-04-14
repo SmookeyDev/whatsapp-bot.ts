@@ -28,12 +28,7 @@ export async function addTextToImage(
   const markImg = (image: Jimp) =>
     isWatermark
       ? image.print(font, 0, 0, text)
-      : image.print(
-          font,
-          image.bitmap.width / 2 - 10,
-          image.bitmap.height / 2,
-          text
-        );
+      : image.print(font, image.bitmap.width / 2 - 10, image.bitmap.height / 2, text);
   const imgText: Jimp = await new Promise(
     (resolve, reject) =>
       new Jimp(x, y, "#00000000", (err, image) => {
@@ -46,7 +41,7 @@ export async function addTextToImage(
   tempFile.composite(imgText, 0, 0, {
     mode: Jimp.BLEND_SOURCE_OVER,
     opacityDest: 1,
-    opacitySource:  isWatermark ? 0.5 : 1,
+    opacitySource: isWatermark ? 0.5 : 1,
   });
 
   const r = await tempFile.getBase64Async(Jimp.MIME_PNG);

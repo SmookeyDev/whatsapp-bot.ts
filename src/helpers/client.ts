@@ -1,13 +1,13 @@
-import { Client, LocalAuth } from 'whatsapp-web.js';
+import { Client, LocalAuth } from "whatsapp-web.js";
 
 const client = new Client({
-    authStrategy: new LocalAuth({
-        clientId: "client-one"
-    }),
-    puppeteer: {
-        headless: true,
-    },
-    ffmpegPath: 'files/ffmpeg'
+  authStrategy: new LocalAuth({
+    clientId: "client-one",
+  }),
+  puppeteer: {
+    headless: true,
+  },
+  ffmpegPath: "files/ffmpeg",
 });
 
 export default client;
