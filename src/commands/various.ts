@@ -22,7 +22,7 @@ client.on("message", async (msg) => {
       const mediaWithText = shouldAddText ? await addTextToImage(mediaData, text) : mediaData;
 
       const sticker = new MessageMedia(media.mimetype, mediaWithText, media.filename);
-      await client.sendMessage(msg.from, sticker, { sendMediaAsSticker: true });
+      await client.sendMessage(msg.from, sticker, { sendMediaAsSticker: true, quotedMessageId: msg.id._serialized });
     } catch (err) {
       msg.reply("Erro ao converter a mídia em sticker");
       console.log(`[ERROR] ${err}`);
