@@ -7,7 +7,7 @@ const client = new Client({
   puppeteer: {
     headless: true,
   },
-  ffmpegPath: "files/ffmpeg",
+  ffmpegPath: "assets/ffmpeg",
 });
 
 export default client;
