@@ -21,8 +21,8 @@ client.on("message", async (msg) => {
       const shouldAddText = text && text.length > 0 && msg.body.trim() !== "!sticker";
       const mediaWithText = shouldAddText ? await addTextToImage(mediaData, text) : mediaData;
 
-      const sticker = new MessageMedia(media.mimetype, mediaWithText, media.filename);
-      await client.sendMessage(msg.from, sticker, { sendMediaAsSticker: true, quotedMessageId: msg.id._serialized });
+      const sticker = new MessageMedia(media.mimetype, mediaWithText, media.filename, );
+      await client.sendMessage(msg.from, sticker, { sendMediaAsSticker: true, quotedMessageId: msg.id._serialized, stickerName: text, stickerAuthor: "https://github.com/SmookeyDev/whatsapp-bot.ts" });
     } catch (err) {
       msg.reply("Erro ao converter a mídia em sticker");
       console.log(`[ERROR] ${err}`);
