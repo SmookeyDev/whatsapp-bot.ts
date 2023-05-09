@@ -26,9 +26,14 @@ export async function addTextToImage(
 ): Promise<string> {
   const { x, y, font, tempFile } = await setup(img);
   const markImg = (image: Jimp) =>
-    isWatermark
-      ? image.print(font, 0, 0, text)
-      : image.print(font, image.bitmap.width / 2 - 10, image.bitmap.height / 2, text);
+  isWatermark
+    ? image.print(font, 0, 0, text)
+    : image.print(font, 0, 0, {
+      text,
+      alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+      alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM,
+    },
+    x, y);
   const imgText: Jimp = await new Promise(
     (resolve, reject) =>
       new Jimp(x, y, "#00000000", (err, image) => {
