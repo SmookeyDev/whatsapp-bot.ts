@@ -59,4 +59,22 @@ client.on("message", async (msg) => {
 !singleview - Envia a midia de visualização única.
 !help - Mostra os comandos disponíveis.`);
   }
+
+  if (msg.body.startsWith("!singleview")) {
+    try {
+      const messageWithMedia = await findMessageWithMedia(msg);
+      if (!messageWithMedia)
+        return msg.reply("Não foi possível encontrar uma mídia para enviar");
+
+      const media = await messageWithMedia.downloadMedia();
+      const mediaData = media.data;
+
+      const mediaMessage = new MessageMedia(media.mimetype, mediaData, media.filename);
+      await client.sendMessage(msg.from, mediaMessage, { quotedMessageId: msg.id._serialized });
+    }
+    catch (err) {
+      msg.reply("Erro ao enviar a mídia");
+      console.log(`[ERROR] ${err}`);
+    }
+  }
 });
