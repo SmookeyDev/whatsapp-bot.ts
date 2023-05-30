@@ -1,4 +1,5 @@
 import Jimp from "jimp";
+import path from "path";
 
 const text2SVG = require("text-svg");
 const { convert } = require("convert-svg-to-png");
@@ -34,9 +35,9 @@ const getText = (text: string, width: number, height: number) => {
     color: "white",
     strokeColor: "black",
     strokeWidth: "1",
-    font: "50px Punheta",
+    font: "40px Punheta",
     textAlign: "center",
-    localFontPath: "./src/DejaVuSans.ttf",
+    localFontPath: path.resolve(__dirname, "../DejaVuSans.ttf"),
     localFontName: "Punheta",
   });
   return convert(s, { width, height: height * 1.5 });
