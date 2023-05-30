@@ -44,7 +44,7 @@ O whatsapp-bot.ts é um bot de whatsapp que tem como objetivo ser um bot de util
 
 1.Clone este repositório usando o seguinte comando:
 ```terminal
-$ git clone -b remake https://github.com/SmookeyDev/whatsapp-bot.ts
+$ git clone https://github.com/SmookeyDev/whatsapp-bot.ts
 ```
 2.Acesse a pasta do projeto em seu terminal:
 ```terminal
