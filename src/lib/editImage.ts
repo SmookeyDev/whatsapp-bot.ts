@@ -7,7 +7,7 @@ const { convert } = require("convert-svg-to-png");
 const base64Text = "data:image/png;base64,";
 
 const getText = (text: string, width: number, height: number) => {
-  const processedText: { trailer: number; value: string } = text
+  const stepText = text
     .split(" ")
     .map((t) => {
       return { legnth: t.length, text: t };
@@ -16,8 +16,8 @@ const getText = (text: string, width: number, height: number) => {
       (finalText, t) => {
         finalText.trailer += t.legnth;
 
-        if (finalText.trailer >= 15) {
-          finalText.trailer = finalText.trailer % 15;
+        if (finalText.trailer >= 20) {
+          finalText.trailer = finalText.trailer % 20;
           finalText.value += `\n${t.text}`;
           return finalText;
         }
@@ -27,20 +27,26 @@ const getText = (text: string, width: number, height: number) => {
         return finalText;
       },
       { trailer: 0, value: "" }
-    );
+    )
+    ["value"].trim();
 
+  const processedText = stepText.includes("\n")
+    ? stepText
+    : stepText.padStart((40 - stepText.length) / 2 + stepText.length).padEnd(40);
+
+  console.log((20 - stepText.length) / 2);
   console.log(processedText);
 
-  const s = text2SVG(processedText.value, {
+  const s = text2SVG(processedText, {
     color: "white",
     strokeColor: "black",
     strokeWidth: "1",
-    font: "40px Punheta",
+    font: "regular 40px Impact",
     textAlign: "center",
-    localFontPath: path.resolve(__dirname, "../DejaVuSans.ttf"),
-    localFontName: "Punheta",
+    localFontPath: path.resolve(__dirname, "../unicode.impact.ttf"),
+    localFontName: "Impact Regular",
   });
-  return convert(s, { width, height: height * 1.5 });
+  return convert(s, { width });
 };
 
 const calcResizingDimensions = (x: number, y: number) => {
@@ -83,7 +89,7 @@ export async function addTextToImage(
   const txt = await getText(text, x, y);
   const textImg = await Jimp.read(txt);
 
-  tempFile.resize(x, y).composite(textImg, 0, 0, {
+  tempFile.resize(x, y).composite(textImg, 0, y - textImg.getHeight(), {
     mode: Jimp.BLEND_SOURCE_OVER,
     opacityDest: 1,
     opacitySource: isWatermark ? 0.5 : 1,
