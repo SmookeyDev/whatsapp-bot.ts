@@ -7,7 +7,7 @@ const { convert } = require("convert-svg-to-png");
 const base64Text = "data:image/png;base64,";
 
 const getText = (text: string, width: number, height: number) => {
-  const stepText = text
+  const processedText = text
     .split(" ")
     .map((t) => {
       return { legnth: t.length, text: t };
@@ -16,8 +16,8 @@ const getText = (text: string, width: number, height: number) => {
       (finalText, t) => {
         finalText.trailer += t.legnth;
 
-        if (finalText.trailer >= 20) {
-          finalText.trailer = finalText.trailer % 20;
+        if (finalText.trailer >= 15) {
+          finalText.trailer = finalText.trailer % 15;
           finalText.value += `\n${t.text}`;
           return finalText;
         }
@@ -29,13 +29,6 @@ const getText = (text: string, width: number, height: number) => {
       { trailer: 0, value: "" }
     )
     ["value"].trim();
-
-  const processedText = stepText.includes("\n")
-    ? stepText
-    : stepText.padStart((40 - stepText.length) / 2 + stepText.length).padEnd(40);
-
-  console.log((20 - stepText.length) / 2);
-  console.log(processedText);
 
   const s = text2SVG(processedText, {
     color: "white",
