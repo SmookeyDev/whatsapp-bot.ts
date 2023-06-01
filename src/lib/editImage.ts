@@ -4,7 +4,7 @@ import path from "path";
 const text2SVG = require("text-svg");
 const { convert } = require("convert-svg-to-png");
 
-const base64Text = "data:image/png;base64,";
+export const base64Text = "data:image/png;base64,";
 
 const getText = (text: string, width: number, height: number) => {
   const processedText = text
